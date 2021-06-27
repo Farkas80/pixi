@@ -1,43 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>* {padding: 0; margin: 0}</style>
     <title>Pixi practice</title>
+    <link rel="stylesheet" href="assets/css/style.css">    
+    <script src='pixi/bundle.js'></script>
     <script src="pixi/pixi.js"></script>
+    <script src="app.js"></script>
 </head>
-    
+
 <body>
-    <script type="text/javascript">
-        let type = "WebGL"
-        if(!PIXI.utils.isWebGLSupported()) {
-            type="canvas"
+
+    <div id="pixi_wrapper" class="hero">
+
+    </div>
+    <div id="arrayContent"></div>
+    <script type="text/javascript">   
+        const GAME_SIZE = 4;     
+        const IMAGE_SIZE = 150;
+        const IMAGE_GUTTER = 5;
+               
+        const app = pixiInit("pixi_wrapper");        
+
+        let icon1 = createImage(1, IMAGE_SIZE);
+        let icon2 = createImage(2, IMAGE_SIZE);
+        
+        const backgroundRef = new Array(GAME_SIZE).fill(new Array(GAME_SIZE));
+        
+        /*app.stage.addChild(icon1);
+        app.stage.addChild(icon2);*/
+        for (let i = 0; i < GAME_SIZE; i++) {
+            for (let j = 0; j < GAME_SIZE; j++) {
+                let backGround = createBackground(IMAGE_SIZE);
+                app.stage.addChild(backGround);
+                backGround.x = (IMAGE_SIZE + IMAGE_GUTTER) * j;
+                backGround.y = (IMAGE_SIZE + IMAGE_GUTTER) * i;
+                backgroundRef[i][j] = backGround;
+            }
         }
-        PIXI.utils.sayHello(type)
-        //Create a PIXI applaication
-        let app= new PIXI.Application({width: 256, height:256})
-        //Add canvas that Pixi will automatically create to HTML
-        document.body.appendChild(app.view);
 
-        
-        PIXI.AbstractRenderer.autoDensity= true;
-        app.renderer.view.style.position= "absolute";
-        app.renderer.view.style.display= "block";
-        app.renderer.resize(window.innerWidth, window.innerHeight); 
-        
-        //Texture
-        /*PIXI.utils.TextureCache["images/Commander-Wolffee.png"];
-        let texture = PIXI.utils.TextureCache["images/Commander-Wolffee.png"];
-        let sprite = new PIXI.Sprite(texture);*/
 
-        //load an img and run setup function when its done loading
-        const texture = PIXI.Texture.from('pic.png');
-        const img = new PIXI.Sprite(texture);
-        app.stage.addChild(img);
+        app.stage.removeChild(backgroundRef[1][1]);
+       console.log(app.stage);
+        
+        icon2.x = IMAGE_SIZE + IMAGE_GUTTER;
         
     </script>
-    
+
+
+
+    <script>
+        (async function (gs) {
+            
+            const pause = (ms) => {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            };
+
+            let game = await gs.init(Math.pow(GAME_SIZE, 2), 30);
+            draw(game.cards, GAME_SIZE);
+            await pause(1500);
+            const result = await gs.play(0, 1)
+            draw(result.cards, GAME_SIZE);
+            const status = await gs.getState()
+            draw(status.cards, GAME_SIZE);
+            console.log(status)
+
+        })(sh.gameService)
+    </script>
 </body>
+
 </html>
