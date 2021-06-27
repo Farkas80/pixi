@@ -12,3 +12,9 @@ html, body {
     margin: 0 auto;
     position: relative;
 }
+
+#pixi_wrapper {
+    width: 615px;
+    height: 615px;
+    margin: 0 auto;
+}
