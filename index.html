@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>* {padding: 0; margin: 0}</style>
+    <title>Pixi practice</title>
+    <script src="pixi/pixi.js"></script>
+</head>
+    
+<body>
+    <script type="text/javascript">
+        let type = "WebGL"
+        if(!PIXI.utils.isWebGLSupported()) {
+            type="canvas"
+        }
+        PIXI.utils.sayHello(type)
+        //Create a PIXI applaication
+        let app= new PIXI.Application({width: 256, height:256})
+        //Add canvas that Pixi will automatically create to HTML
+        document.body.appendChild(app.view);
+
+        
+        PIXI.AbstractRenderer.autoDensity= true;
+        app.renderer.view.style.position= "absolute";
+        app.renderer.view.style.display= "block";
+        app.renderer.resize(window.innerWidth, window.innerHeight); 
+        
+        //Texture
+        /*PIXI.utils.TextureCache["images/Commander-Wolffee.png"];
+        let texture = PIXI.utils.TextureCache["images/Commander-Wolffee.png"];
+        let sprite = new PIXI.Sprite(texture);*/
+
+        //load an img and run setup function when its done loading
+        const texture = PIXI.Texture.from('pic.png');
+        const img = new PIXI.Sprite(texture);
+        app.stage.addChild(img);
+        
+    </script>
+    
+</body>
+</html>
