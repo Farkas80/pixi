@@ -20,6 +20,7 @@ Find the pair memory game.
 * Tech 1 - HTML5
 * Tech 2 - CSS3
 * Tech 3 - Vanilla Javascript
+* Tech 4 - PIXIjs
 
 ## Features
 _in progress_
