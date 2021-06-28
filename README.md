@@ -14,7 +14,7 @@ Memory game
 Find the pair memory game.
 
 ## Screenshots
-![pixi](screenshot.png)
+![pixi](screenshoot.png)
 
 ## Technologies
 * Tech 1 - HTML5
